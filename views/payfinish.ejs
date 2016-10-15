@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        订单完成
+    </title>
+    <link rel="stylesheet" type="text/css" href="Uploader/style.css"> 
+</head>
+
+<body>
+<div style="height:180px;background-color:#03A9F4;">
+<div class="texttitle">
+<img src="/images/finish.png" width="50px" style="margin-top:20px">
+</div>
+<p class="texttitle">订单完成</p>
+<p class="textmain">请等待工作人员确认后回复短信通知</p>
+</div>
+
+<div style="height:120px;background-color:#ffffff;">
+	<p class="textleft">订单编号：<span class="textright" id="ordernumber"></span></p>
+	<p class="textleft">交易方式：<span class="textright">微信支付</span></p>
+	<p class="textleft">下单时间：<span class="textright" id="thistime"></span></p>
+	<p class="textleft">客服热线：<span class="textright">17826800339</span></p>
+</div>
+
+<div id="nextstep" class="nextstep" style="position:fixed; left:0; bottom:0;" onclick="document.location='/';">
+返回首页
+</div>
+</body>
+<script type="text/javascript" src="Uploader/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var year = date.getFullYear();
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = year + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;
+	}
+
+	$(function(){
+         $.ajax({
+             type: "GET",
+             url: "getordernumber",
+             success: function(data){
+                         $('#ordernumber').html(data.ordernumber);
+                         $('#thistime').html(getNowFormatDate());
+                      }
+
+         });
+});
+</script>
+</html>
